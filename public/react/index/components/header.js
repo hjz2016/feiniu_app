@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import util from '../../common/util.js'
+import actions from '../../redux/actions'
+import store from '../../redux/store'
+
+import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
+
 
 class Header extends Component {
 	constructor(props){
 		super()
 
 		this.state = {
-			dafaultvalue:'腕表',
+			dafaultvalue:store.getState().keyword,
 			style:{backgroundColor:'#d7063b'},
 			pos:null
 		}
 	}
 
 	componentWillMount(){
-		var that = this
+		
+	}
 
-	    // axios.get('/static/data/banner.json')
-	    // .then(function(res){
-	    //   that.setState({
-	    //     pos:res.data
-	    //   })
-	    // })
-	    // .catch(function(err){
-	    //   console.log(err);
-	    // });
+	getVal(e){
+		var val = e.target.value
+
 	}
 	
   	render() {
@@ -43,8 +43,10 @@ class Header extends Component {
 					    	<use xlinkHref="#icon-sousuo"></use>
 						</svg>	
 					</button>
+					<Link to={'/search/'+(this.state.dafaultvalue?this.state.dafaultvalue:'nokey')}>
+						<input onClick={this.getVal.bind(this)} type="text" defaultValue={this.state.dafaultvalue}/>
+					</Link>
 					
-					<input type="text" defaultValue={this.props.abc}/>
 				</form>
 			 </div>
 			 <div className="h_right">
@@ -53,11 +55,23 @@ class Header extends Component {
 	      </div>
 	    )
   	}
+
+  	componentDidMount(){
+  		var that = this
+		
+  		this.unsubscribe = store.subscribe(function(){
+			that.setState({
+				dafaultvalue:store.getState().keyword
+			})
+		})
+  	}
+
+  	componentWillUnmount(){
+  		this.unsubscribe()
+  	}
 }
 
-Header.defaultProps = {
-	abc:'腕表'
-}
+
 
 
 export default Header;

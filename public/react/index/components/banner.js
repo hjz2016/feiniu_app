@@ -59,7 +59,7 @@ class Banner extends Component {
 class Item extends Component{
     constructor(props){
       super()
-      console.log(props)
+      
     }
 
     render() {

@@ -13,7 +13,16 @@ class CCont extends Component {
   }
 
   componentWillMount(){
+      var that = this;
 
+      ajax_module.get(`/static/data/1.json`).then((res)=>{
+          return res.json()
+      }).then((data)=>{
+
+         that.setState({
+            data:data
+         })
+      })
   }
 
   render() {
@@ -24,7 +33,7 @@ class CCont extends Component {
             <a href="/goods">
               {this.state.data?
                 <img src={this.state.data[0].src} alt=""/>:
-                <img style={{width:'50%',height:'50%',left:'25%',top:'25%',position:'absolute'}} src={'./static/images/loading.gif'} alt=""/>
+                ''
               }
             </a>
           </li>
@@ -32,13 +41,13 @@ class CCont extends Component {
             <a href="/goods">
               {this.state.data?
                 <img src={this.state.data[1].src} alt=""/>:
-                <img style={{width:'50%',margin:'0 auto'}} src={'./static/images/loading.gif'} alt=""/>
+                ''
               }
             </a>
             <a href="/goods">
               {this.state.data?
                 <img src={this.state.data[2].src} alt=""/>:
-                <img style={{width:'50%',margin:'0 auto'}} src={'./static/images/loading.gif'} alt=""/>
+                ''
               }
             </a>
           </li>
@@ -48,15 +57,6 @@ class CCont extends Component {
   }
 
   componentWillReceiveProps(props){
-     var that = this;
-
-      ajax_module.get(`/static/data/1.json`).then((res)=>{
-          return res.json()
-      }).then((data)=>{
-         that.setState({
-            data:data
-         })
-      })
     
 
   }

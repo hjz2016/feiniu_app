@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// 主题馆内容
+// 固定按钮
 class FixBtns extends Component {
   render() {
     return (

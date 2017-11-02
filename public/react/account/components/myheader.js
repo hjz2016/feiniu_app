@@ -19,8 +19,8 @@ class MyHeader extends React.Component{
 		            </div>	
 		            <div className="person_i">
 		                <p className="bigbox">
-	                        <span className="J_login" >登录</span>
-	                        <span className="J_register">注册</span>
+	                        <span className="J_login" ><Link to='/login'>登录</Link></span>
+	                        <span className="J_register"><Link to='/regi'>注册</Link></span>
 		                </p>
 		              
 		            </div>

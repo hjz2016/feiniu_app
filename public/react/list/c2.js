@@ -13,13 +13,28 @@ import RightCont from './components/rightcont.js'
 
 
 class C2 extends Component {
+	constructor(props){
+		super(props)
+
+		
+		this.state = {
+			type:0
+		}
+	}
+
+	chgType(type){
+		this.setState({
+			type:type
+		})
+	}
+
   render() {
     return (
       <div id='list-wrapper'>
       	<TopSearch/>
       	<div className='l_cont'>
-			<LeftList/>
-			<RightCont/>
+			<LeftList chgType={this.chgType.bind(this)}/>
+			<RightCont type={this.state.type}/>
       	</div>
       </div>
     )

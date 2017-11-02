@@ -11,7 +11,8 @@ module.exports = {
     // 入口文件输出配置
     output : {
         path : __dirname + '/build',
-        filename : '[name].bundle.js'
+        filename : '[name].bundle.js',
+        publicPath:'/'
     },
     devServer:{
         contentBase:'./build',//服务器开启的位置
@@ -19,13 +20,21 @@ module.exports = {
         host:'localhost',
         historyApiFallback:true,//是否使用H5里HISTORYapi
         proxy:{// 利用开发服务器代理请求
-            "/goods":{
+            "/search_api":{
                 // 目标域名
-                target:'http://localhost:2000',
+                target:'http://m.feiniu.com',
                 // 是否改变域名
                 changeOrigin: true,
                 // 替换请求内容
-                secure: false             
+                pathRewrite:{'^/search_api': '/'}
+            },
+            "/find_api":{
+                // 目标域名
+                target:'http://www.meilele.com',
+                // 是否改变域名
+                changeOrigin: true,
+                // 替换请求内容
+                pathRewrite:{'^/find_api': '/'}
             }
         }
         

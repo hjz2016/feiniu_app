@@ -8,6 +8,7 @@ class CSCont extends Component {
 
     this.renderList = this.renderList.bind(this)
     this.loadMore = this.loadMore.bind(this)
+    this.checkScroll = this.checkScroll.bind(this)
 
     this.state = {
       loadMore_flag:false,
@@ -57,6 +58,14 @@ class CSCont extends Component {
     this.setState({loadMore_flag:flag})
   }
 
+  checkScroll(){
+   
+    if($('.cs_cont>ul:last').offset().top-$(document.documentElement).scrollTop() < -600){
+      this.num = $('.cs_cont>ul').length
+      this.loadMore(true)
+    }
+  }
+
   render() {
     return (
       <div className='cs_cont'>
@@ -75,32 +84,22 @@ class CSCont extends Component {
   }
 
   componentDidMount(){
-    var that = this;
-    
-    document.addEventListener('scroll',function(){
-        
-        if($('.cs_cont>ul:last').offset().top-$(document.documentElement).scrollTop() < -600){
-          that.num = $('.cs_cont>ul').length
-          that.loadMore(true)
-        }
-    })
+    document.addEventListener('scroll',this.checkScroll)
   }
 
-  componentDidUpdate(){
-    
+  componentWillUnmount(){
+    document.removeEventListener('scroll',this.checkScroll)
   }
 }
 
 class CSItem extends Component {
   constructor(props){
     super()
-    // console.log(props)
+  
     this.state = {
       ten:props.goodsData?props.goodsData.o_price.split('.')[0]:'',
       one:props.goodsData?props.goodsData.o_price.split('.')[1]:''
     }
-
-    // console.log(this.state)
   }
 
   componentWillReceiveProps(props){

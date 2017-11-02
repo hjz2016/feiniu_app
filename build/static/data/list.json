@@ -1,0 +1,31 @@
+[{
+	"tab":0,
+	"src":"./static/images/list/1.jpg",
+	"list":[{
+		"name":"手机",
+		"goods":[{
+			"name":"手机",
+			"src":"./static/images/list/1i.jpg"
+		}]
+	}]
+},{
+	"tab":1,
+	"src":"./static/images/list/2.jpg",
+	"list":[{
+		"name":"推荐分类",
+		"goods":[{
+			"name":"炒锅",
+			"src":"./static/images/list/2i.jpg"
+		}]
+	}]
+},{
+	"tab":2,
+	"src":"./static/images/list/3.jpg",
+	"list":[{
+		"name":"新鲜水果",
+		"goods":[{
+			"name":"奇异果",
+			"src":"./static/images/list/3i.jpg"
+		}]
+	}]
+}]

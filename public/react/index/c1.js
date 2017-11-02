@@ -46,6 +46,7 @@ class c1 extends Component {
   }
 
   scrollChgColor(){
+
     if(document.documentElement.scrollTop < 50){
       this.setState({color:false})
     }else{
@@ -74,8 +75,9 @@ class c1 extends Component {
   componentDidMount(){
     var that = this;
     
-    document.addEventListener('scroll',function(){
-      that.scrollChgColor()
+    $(document).scroll(function(){
+      
+        that.scrollChgColor()
     })
 
     document.addEventListener('touchmove',function(){
@@ -83,6 +85,12 @@ class c1 extends Component {
     })
 
    
+  }
+
+  componentWillUnmount(){
+    $(document).off('scroll')
+    
+    document.removeEventListener('touchmove',this.scrollChgColor)
   }
 
 }
