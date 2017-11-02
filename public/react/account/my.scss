@@ -1,5 +1,5 @@
 
-
+$red:rgb(194, 0, 83);
  .my{
     .myHeader{
         height:2.04rem ;
@@ -139,6 +139,10 @@
                 a{
                     margin: 0.1rem;
                     color: #333;
+                }
+
+                .cur{
+                    color:$red;
                 }
             }
             .copyright{

@@ -29,7 +29,7 @@ class BC extends Component {
 
 	  componentDidMount(){
 	  	var mySwiper3 = new Swiper('.bc_container', {
-	  		autoplay: 2000,
+	  		autoplay: 3000,
 	  		direction : 'vertical',
 	  		loop:true
 		})

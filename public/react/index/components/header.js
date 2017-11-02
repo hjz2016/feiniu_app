@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import util from '../../common/util.js'
 import actions from '../../redux/actions'
-import store from '../../redux/store'
+import store from '../../redux/store';
+// import geolocation from '../../common/geolocation'
 
 import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 
@@ -14,12 +15,27 @@ class Header extends Component {
 		this.state = {
 			dafaultvalue:store.getState().keyword,
 			style:{backgroundColor:'#d7063b'},
-			pos:null
+			pos:false
 		}
 	}
 
 	componentWillMount(){
-		
+
+		var that = this;
+
+		if(localStorage['pos']){
+			that.setState({
+				pos:true
+			})
+		}else{
+			setTimeout(()=>{
+				that.setState({
+					pos:true
+				})
+				localStorage['pos']='北京市';
+				location.reload()
+			},5000)
+		}
 	}
 
 	getVal(e){
@@ -30,11 +46,11 @@ class Header extends Component {
   	render() {
 	    return (
 	      <div className='header' style={this.props.color?this.state.style:{}}>
-	         <div className="h_left">
+	         <div className="h_left" style={{width:'.7rem',textAlign:'center'}}>
 	         	<svg className="icon" aria-hidden="true">
 				    <use xlinkHref="#icon-dingwei-copy"></use>
 				</svg>
-				<a href="/index.city">北京</a>
+				<a href="/">{this.state.pos?'北京市':'定位中'}</a>
 			 </div>
 			 <div className="h_search">
 				<form>
@@ -50,7 +66,11 @@ class Header extends Component {
 				</form>
 			 </div>
 			 <div className="h_right">
-			 	<a href="/users.login">登录</a>
+			 	{
+			 		localStorage['user']?<Link to="/account"> {JSON.parse(localStorage['user']).nickname}</Link>:
+					<Link to="/login">登录</Link>
+			 	}
+			 	
 			 </div>
 	      </div>
 	    )

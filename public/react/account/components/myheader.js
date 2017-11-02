@@ -1,10 +1,26 @@
 import React from "react";
 import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import actions from '../../redux/actions';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
 class MyHeader extends React.Component{
 	constructor(props,context){
         super(props,context)
+        console.log(context)
     }
+
+    deleteStorage(){
+    	var that = this
+    	
+    	localStorage.removeItem('user')
+    	location.reload()
+    }
+
 	render(){
+		var imgurl = localStorage['user']?JSON.parse(localStorage['user']).userimg_url:null;
         return (
             <div className="myHeader">
 	            <div className="header">
@@ -15,12 +31,24 @@ class MyHeader extends React.Component{
 	            </div>
 	            <div className="content">
 	            	<div className="img">
-		            	<img src="./static/images/my/feiniu.jpg"/>
+		            	<img src={imgurl?
+		            		imgurl
+		            		:
+		            		'./static/images/my/feiniu.jpg'}/>
 		            </div>	
 		            <div className="person_i">
 		                <p className="bigbox">
-	                        <span className="J_login" ><Link to='/login'>登录</Link></span>
-	                        <span className="J_register"><Link to='/regi'>注册</Link></span>
+							{localStorage['user']?
+							<span>
+								<span>{JSON.parse(localStorage['user']).nickname}</span>
+								<span className="J_login" ><Link to='/account' onClick={this.deleteStorage}>退出</Link></span>
+							</span>
+							:
+								<span><span className="J_login" ><Link to='/login'>登录</Link></span>
+		                        <span className="J_register"><Link to='/regi'>注册</Link></span></span>
+								
+							}
+	                        
 		                </p>
 		              
 		            </div>
@@ -36,4 +64,19 @@ class MyHeader extends React.Component{
         )
     }
 }
-export default MyHeader
+
+MyHeader.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
+let mapDispatchToProps = function(dispatch){
+	return{
+		actions:bindActionCreators(actions,dispatch)
+	}	
+}
+
+let Cont = connect(state=>state,mapDispatchToProps)(MyHeader);
+
+
+
+export default Cont
